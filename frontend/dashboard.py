@@ -13,19 +13,17 @@ st.set_page_config(
 # ======================================
 # FETCH DATA
 # ======================================
-API_URL = os.getenv(
-    "https://meeting-intelligence-agent-qg2g.onrender.com",
-    "http://127.0.0.1:8000"
-)
+# API_URL = os.getenv(
+#     "https://meeting-intelligence-agent-qg2g.onrender.com",
+#     "http://127.0.0.1:8000"
+# )
 
+API_URL = "https://meeting-intelligence-agent-qg2g.onrender.com"
 st.write("API URL:", API_URL)
 response = requests.get(
-    f"{API_URL}/meetings"
+    f"{API_URL}/meetings",
+    timeout=30
 )
-
-# response = requests.get(
-#     "https://meeting-intelligence-agent-qg2g.onrender.com"
-# )
 
 meetings = response.json()
 

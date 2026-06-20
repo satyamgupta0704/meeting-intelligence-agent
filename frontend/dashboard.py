@@ -18,6 +18,7 @@ API_URL = os.getenv(
     "http://127.0.0.1:8000"
 )
 
+st.write("API URL:", API_URL)
 response = requests.get(
     f"{API_URL}/meetings"
 )

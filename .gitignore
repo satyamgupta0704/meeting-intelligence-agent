@@ -1,1 +1,24 @@
 node_modules/
+venv/
+__pycache__/
+meetings.db
+# Sensitive API keys and environment configurations
+.env
+backend/.env
+
+# Google OAuth Credentials and Tokens
+credentials.json
+backend/credentials.json
+token.json
+backend/token.json
+
+# Local SQLite Database
+*.db
+backend/meetings.db
+
+# Python compiled caching files (the red icon files in your screenshot)
+__pycache__/
+*.pyc
+backend/**/__pycache__/
+backend/integrations/__pycache__/
+backend/services/__pycache__/

@@ -2,8 +2,8 @@ import json
 
 from streamlit import title
 
-from database import SessionLocal
-from models import Meeting
+from backend.database import SessionLocal
+from backend.models import Meeting
 
 
 def save_meeting(

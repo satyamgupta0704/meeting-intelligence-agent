@@ -1,17 +1,18 @@
-from services.db_service import save_meeting
-from integrations.google_calendar import (
+from backend.services.company_extractor import extract_company
+from backend.integrations.google_calendar import (
     fetch_upcoming_meetings
 )
 
-from services.company_extractor import (
+from backend.services.company_extractor import (
     extract_company
 )
 
-from services.research_service import (
+from backend.services.db_service import save_meeting
+from backend.services.research_service import (
     gather_company_research
 )
 
-from services.brief_generator import (
+from backend.services.brief_generator import (
     generate_brief
 )
 

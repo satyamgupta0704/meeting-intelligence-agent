@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import requests
 import json
@@ -12,10 +13,18 @@ st.set_page_config(
 # ======================================
 # FETCH DATA
 # ======================================
+API_URL = os.getenv(
+    "https://meeting-intelligence-agent-qg2g.onrender.com",
+    "http://127.0.0.1:8000"
+)
 
 response = requests.get(
-    "http://127.0.0.1:8000/meetings"
+    f"{API_URL}/meetings"
 )
+
+# response = requests.get(
+#     "https://meeting-intelligence-agent-qg2g.onrender.com"
+# )
 
 meetings = response.json()
 

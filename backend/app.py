@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from database import SessionLocal
-from models import Meeting
+from backend.database import SessionLocal
+from backend.models import Meeting
 
 app = FastAPI()
 

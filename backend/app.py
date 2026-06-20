@@ -1,9 +1,36 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
-from backend.database import SessionLocal
-from backend.models import Meeting
+from backend.database import SessionLocal, engine
+from backend.models import Base, Meeting
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+
+    print("Creating database tables...")
+
+    Base.metadata.create_all(bind=engine)
+
+    print("Database ready.")
+
+    yield
+
+
+app = FastAPI(
+    title="Meeting Intelligence Agent",
+    lifespan=lifespan
+)
+
+
+@app.get("/")
+def root():
+
+    return {
+        "status": "running",
+        "message": "Meeting Intelligence Agent API"
+    }
 
 
 @app.get("/meetings")
@@ -11,22 +38,36 @@ def get_meetings():
 
     db = SessionLocal()
 
-    meetings = db.query(Meeting).all()
+    try:
 
-    result = []
+        meetings = db.query(Meeting).all()
 
-    for m in meetings:
+        result = []
 
-        result.append(
-            {
-                "id": m.id,
-                "title": m.title,
-                "company": m.company,
-                "time": m.meeting_time,
-                "brief": m.brief
-            }
-        )
+        for m in meetings:
 
-    db.close()
+            result.append(
+                {
+                    "id": m.id,
+                    "title": m.title,
+                    "company": m.company,
+                    "domain": m.domain,
+                    "attendees": m.attendees,
+                    "time": m.meeting_time,
+                    "brief": m.brief
+                }
+            )
 
-    return result
+        return result
+
+    finally:
+
+        db.close()
+
+
+@app.get("/health")
+def health():
+
+    return {
+        "status": "healthy"
+    }
